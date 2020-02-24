@@ -1,71 +1,87 @@
-function computerPlay(handGestures) {
-    var computerAnswer = Math.floor(Math.random() * handGestures);
-    switch(computerAnswer) {
-        case 0:
-            return "rock";
-        case 1:
-            return "paper";
-        case 2: 
-            return "scissors";
+var playerScore = 0;
+var computerScore = 0;
+var computerChoices = ['rock', 'paper', 'scissors'];
+var playerSelection = "";
+var gameOver = false;
+
+var playerScoreText = document.createElement('div');
+var computerScoreText = document.createElement('div');
+var resultsText = document.createElement('div');
+var scoreBoardText = document.createElement('div');
+var gameOverText = document.createElement('h2');
+
+function game() {
+    if (!gameOver) {
+        startRound();
+    }
+    if (playerScore = 5) {
+        gameOver = true;
+        gameOverText.textContent = "You win! \nYou:${playerScore} | Computer:${computerScore}";
+    }
+    else if (computerScore = 5) {
+        gameOver = true;
+        gameOverText.textContent = "You lose! \nYou:${playerScore} | Computer:${computerScore}";
     }
 }
-function playRPS(playerSelection, computerSelection) {
-    var standardizedAnswer = playerSelection.toLowerCase();
-    var gameResult;
+function computerPlay() {
+    return computerChoices = [Math.floor(Math.random() * computerChoices.length)];
+}
+function startRound() {
+    var computerSelection = computerPlay();
+    var playerSelection = window.prompt("Type Rock, Paper or Scissors");
+    var standardizedAnswer = playerSelection.toLowerCase(); //case sensitivity
+
+    playRound(standardizedAnswer, computerSelection);
+}
+function playRound(standardizedAnswer, computerSelection) {
     switch(standardizedAnswer) {
         case "rock":
             if(computerSelection = "rock") {
-                return gameResult = "It's a tie!";
+                resultsText.textContent = "It's a tie!";
+                getScoreBoard();
             }
             else if(computerSelection = "paper") {
                 computerScore++;
-                return gameResult = "You lose! Paper beats Rock!";
+                resultsText.textContent = "You lose! Paper beats Rock!";
+                getScoreBoard();
             }
             else {
                 playerScore++;
-                return gameResult = "You win! Rock beats Scissors!";
+                resultsText.textContent = "You win! Rock beats Scissors!";
+                getScoreBoard();
             }
         case "paper":
             if(computerSelection = "paper") {
-                return gameResult = "It's a tie!";
+                resultsText.textContent = "It's a tie!";
+                getScoreBoard();
             }
             else if(computerSelection = "scissors") {
                 computerScore++;
-                return gameResult = "You lose! Scissors beat Paper!";
+                resultsText.textContent = "You lose! Scissors beat Paper!";
+                getScoreBoard();
             }
             else {
                 playerScore++;
-                return gameResult = "You win! Paper beats Rock!";
+                resultsText.textContent = "You win! Paper beats Rock!";
+                getScoreBoard();
             }
         case "scissors":
             if(computerSelection = "scissors") {
-                return gameResult = "It's a tie!";
+                resultsText.textContent = "It's a tie!";
+                getScoreBoard();
             }
             else if(computerSelection = "rock") {
                 computerScore++;
-                return gameResult = "You lose! Rock beats Scissors!";              
+                resultsText.textContent = "You lose! Rock beats Scissors!";     
+                getScoreBoard();         
             }
             else {
                 playerScore++;
-                return gameResult = "You win! Scissors beat Rock!";
+                resultsText.textContent = "You win! Scissors beat Rock!";
+                getScoreBoard();
             }   
     }
 }
-
-var playerScore = 0;
-var computerScore = 0;
-
-function game() {
-    while(playerScore < 5 || computerScore < 5) {
-        var computerSelection = computerPlay(3);
-        var playerSelection = window.prompt("Type Rock, Paper or Scissors");
-        var roundResult = (playRPS(playerSelection, computerSelection));
-        console.log(roundResult);
-    }
-    if (playerScore = 5) {
-        console.log("You win the game!");
-    }
-    else if (computerScore = 5) {
-        console.log("You lost the game!");
-    }
+function getScoreBoard() {
+    return scoreBoardText.textContent = "You:${playerScore} | Computer:${computerScore}";
 }
